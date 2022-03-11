@@ -51,9 +51,9 @@ chrome.action.onClicked.addListener(function (tab) {
                 .then((result) => {
                     var sidekick = result.setting.value;
                     if (stripped_url) {
-                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + tab_url + '"';
+                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + encodeURIComponent(tab_url) + '"';
                     } else {
-                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + tab_url + '~"';
+                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + encodeURIComponent(tab_url) + '~"';
                     }
                     fetch(request_url, {
                         headers: {
@@ -62,6 +62,7 @@ chrome.action.onClicked.addListener(function (tab) {
                         }  
                     }).then(result => result.json())
                     .then((result) => {
+                        console.log(result.response);
                         if (result.response.numFound > 1) {
                             console.log(result.response)
                             // found an existing indexed page
