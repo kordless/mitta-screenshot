@@ -23,13 +23,21 @@ function dataUrltoBlob(dataUrl) {
 // handle click of icon
 chrome.action.onClicked.addListener(function (tab) {
     tab_url = tab.url;
+
+    // strip trailing / off URL
+    if(tab_url.charAt( tab_url.length-1 ) == "/") {
+        tab_url = tab_url.slice(0, -1)
+        var stripped_url = true
+    } else {
+        var stripped_url = false
+    }
     title = tab.title;
 
     chrome.tabs.captureVisibleTab({format: "png"},(dataUrl) => {
         if (dataUrl && dataUrl.length) {
             setTimeout(() => {
-                //var domain = "https://mitta.us";
-                var domain = "http://localhost:8080";
+                var domain = "https://mitta.us";
+                // var domain = "http://localhost:8080";
                 var blob = dataUrltoBlob(dataUrl);
                 var fd = new FormData();
                 fd.append("data", blob, "data");
@@ -42,7 +50,11 @@ chrome.action.onClicked.addListener(function (tab) {
                 }).then(result => result.json())
                 .then((result) => {
                     var sidekick = result.setting.value;
-                    var request_url = domain + "/s/" + sidekick + '?line=!search url_str:"' + tab_url + '"';
+                    if (stripped_url) {
+                        var request_url = domain + "/s/" + sidekick + '?line=!search url_str:"' + tab_url + '"';
+                    } else {
+                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + tab_url + '~"';
+                    }
                     fetch(request_url, {
                         headers: {
                             'Accept': 'application/json, text/plain, */*',
