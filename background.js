@@ -36,8 +36,8 @@ chrome.action.onClicked.addListener(function (tab) {
     chrome.tabs.captureVisibleTab({format: "png"},(dataUrl) => {
         if (dataUrl && dataUrl.length) {
             setTimeout(() => {
-                var domain = "https://mitta.us";
-                // var domain = "http://localhost:8080";
+                // var domain = "https://mitta.us";
+                var domain = "http://localhost:8080";
                 var blob = dataUrltoBlob(dataUrl);
                 var fd = new FormData();
                 fd.append("data", blob, "data");
@@ -51,7 +51,7 @@ chrome.action.onClicked.addListener(function (tab) {
                 .then((result) => {
                     var sidekick = result.setting.value;
                     if (stripped_url) {
-                        var request_url = domain + "/s/" + sidekick + '?line=!search url_str:"' + tab_url + '"';
+                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + tab_url + '"';
                     } else {
                         var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + tab_url + '~"';
                     }
@@ -62,7 +62,8 @@ chrome.action.onClicked.addListener(function (tab) {
                         }  
                     }).then(result => result.json())
                     .then((result) => {
-                        if (result.response.docs[0]) {
+                        if (result.response.numFound > 1) {
+                            console.log(result.response)
                             // found an existing indexed page
                             var spool = result.response.docs[0].spool;
                             var document_id = result.response.docs[0].document_id;
