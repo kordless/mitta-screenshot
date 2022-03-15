@@ -38,8 +38,8 @@ chrome.action.onClicked.addListener(function (tab) {
         if (dataUrl && dataUrl.length) {
             setTimeout(() => {
                 chrome.action.setIcon({path: "assets/icon-128.png"},() => {});
-                // var domain = "https://mitta.us";
-                var domain = "http://localhost:8080";
+                var domain = "https://mitta.us";
+                // var domain = "http://localhost:8080";
                 var blob = dataUrltoBlob(dataUrl);
                 var fd = new FormData();
                 fd.append("data", blob, "data");
@@ -54,7 +54,7 @@ chrome.action.onClicked.addListener(function (tab) {
                     chrome.action.setIcon({path: "assets/cursor-128.png"},() => {});
                     var sidekick = result.setting.value;
                     if (stripped_url) {
-                        var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + encodeURIComponent(tab_url) + '"';
+                        var request_url = domain + "/s/" + sidekick + '?line=!search url_str:"' + encodeURIComponent(tab_url) + '"';
                     } else {
                         var request_url = domain + "/s/" + sidekick + '?line=!search url:"' + encodeURIComponent(tab_url) + '~"';
                     }
@@ -66,9 +66,7 @@ chrome.action.onClicked.addListener(function (tab) {
                     }).then(result => result.json())
                     .then((result) => {
                         chrome.action.setIcon({path: "assets/icon-128.png"},() => {});
-                        console.log(result.response);
-                        if (result.response.numFound > 1) {
-                            console.log(result.response)
+                        if (result.response.numFound > 0) {
                             // found an existing indexed page
                             var spool = result.response.docs[0].spool;
                             var document_id = result.response.docs[0].document_id;
