@@ -38,8 +38,8 @@ chrome.action.onClicked.addListener(function (tab) {
         if (dataUrl && dataUrl.length) {
             setTimeout(() => {
                 chrome.action.setIcon({path: "assets/icon-128.png"},() => {});
-                var domain = "https://mitta.us";
-                // var domain = "http://localhost:8080";
+                // var domain = "https://mitta.us";
+                var domain = "http://localhost:8080";
                 var blob = dataUrltoBlob(dataUrl);
                 var fd = new FormData();
                 fd.append("data", blob, "data");
@@ -103,7 +103,7 @@ chrome.action.onClicked.addListener(function (tab) {
                                         'Accept': 'application/json, text/plain, */*',
                                         'Content-Type': 'application/json'  
                                     },
-                                    body: JSON.stringify({url: tab_url, title: title, spool: result.name, line: "!crawl " + tab_url})
+                                    body: JSON.stringify({url: tab_url, title: title, tags: ["#grub,#chrome"], spool: result.name, line: "!crawl " + tab_url})
                                 }).then(result => result.json())
                                 .then(result => {
                                     chrome.action.setIcon({path: "assets/upload-128.png"},() => {});
