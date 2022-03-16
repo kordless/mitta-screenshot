@@ -38,8 +38,8 @@ chrome.action.onClicked.addListener(function (tab) {
         if (dataUrl && dataUrl.length) {
             setTimeout(() => {
                 chrome.action.setIcon({path: "assets/icon-128.png"},() => {});
-                // var domain = "https://mitta.us";
-                var domain = "http://localhost:8080";
+                var domain = "https://mitta.us";
+                // var domain = "http://localhost:8080";
                 var blob = dataUrltoBlob(dataUrl);
                 var fd = new FormData();
                 fd.append("data", blob, "data");
