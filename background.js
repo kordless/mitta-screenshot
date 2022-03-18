@@ -103,7 +103,7 @@ chrome.action.onClicked.addListener(function (tab) {
                                         'Accept': 'application/json, text/plain, */*',
                                         'Content-Type': 'application/json'  
                                     },
-                                    body: JSON.stringify({url: tab_url, title: title, spool: result.name, line: "!crawl " + tab_url})
+                                    body: JSON.stringify({url: tab_url, title: title, tags: ["#grub,#chrome"], spool: result.name, line: "!crawl " + tab_url})
                                 }).then(result => result.json())
                                 .then(result => {
                                     chrome.action.setIcon({path: "assets/upload-128.png"},() => {});
