@@ -1,4 +1,7 @@
-// mitta screenshot 0.1.0
+// mitta screenshot 0.1.1
+// copyright, 2022
+// kordless@gmail.com
+
 var tab_url = "";
 var title = "";
 
