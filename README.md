@@ -6,7 +6,7 @@ Mitta Screenshot is a Google Chrome extension which saves a page to [Mitta.us](h
 Mitta Screenshot ©2022 by Kord Campbell, [MIT License](./LICENSE)
 
 ## Installation
-A developer version of this software is [available for download](https://github.com/kordless/mitta-screenshot/archive/refs/heads/main.zip). 
+A developer version of this software is [available for download](https://github.com/kordless/mitta-screenshot/releases/tag/v0.1.0). 
 
 1. Uncompress the archive and move the file to your local drive.
 
